@@ -10462,7 +10462,7 @@ var Todont = function (_Component) {
           handleDelete = _props.handleDelete,
           index = _props.index;
 
-      console.log(this.props);
+
       return _react2.default.createElement(
         "div",
         { className: "row" },
@@ -10475,7 +10475,10 @@ var Todont = function (_Component) {
             _react2.default.createElement(
               "label",
               null,
-              _react2.default.createElement("input", { type: "checkbox", checked: gotTime, onChange: function onChange() {
+              _react2.default.createElement("input", {
+                type: "checkbox",
+                checked: gotTime,
+                onChange: function onChange() {
                   return handleNoTime(index);
                 } }),
               gotTime ? text : "Aint Nobody Got Time for Dat"
@@ -10487,7 +10490,10 @@ var Todont = function (_Component) {
           { className: "col-xs-3" },
           _react2.default.createElement(
             "button",
-            { type: "button", className: "btn btn-danger", onClick: function onClick() {
+            {
+              type: "button",
+              className: "btn btn-danger",
+              onClick: function onClick() {
                 return handleDelete(index);
               } },
             "Delete"
@@ -10519,13 +10525,20 @@ var TodontList = function (_Component2) {
 
       return _react2.default.createElement(
         "div",
-        { id: "todont-list", className: "row" },
+        {
+          id: "todont-list",
+          className: "row" },
         _react2.default.createElement(
           "div",
-          { className: "col-sm-4 col-sm-offset-4" },
+          {
+            className: "col-sm-4 col-sm-offset-4" },
           this.props.todontList.map(function (todont, index) {
-            return _react2.default.createElement(Todont, _extends({ key: index, index: index,
-              handleNoTime: handleNoTime, handleDelete: handleDelete }, todont));
+            return _react2.default.createElement(Todont, _extends({
+              key: index,
+              index: index,
+              handleNoTime: handleNoTime,
+              handleDelete: handleDelete
+            }, todont));
           })
         )
       );
@@ -10541,24 +10554,22 @@ var TodontForm = function (_Component3) {
   function TodontForm() {
     _classCallCheck(this, TodontForm);
 
-    return _possibleConstructorReturn(this, (TodontForm.__proto__ || Object.getPrototypeOf(TodontForm)).apply(this, arguments));
+    var _this3 = _possibleConstructorReturn(this, (TodontForm.__proto__ || Object.getPrototypeOf(TodontForm)).call(this));
+
+    _this3.state = { text: '' };
+    return _this3;
   }
 
   _createClass(TodontForm, [{
-    key: "handleSubmit",
-    value: function handleSubmit(e) {
-      var todont = { text: this.refs.text.value, gotTime: true };
-      // axios.post('/todonts')
-      //   .then(res => {
-
-      //   })
-      //   .catch(err => {
-
-      //   })
+    key: "onChange",
+    value: function onChange(e) {
+      this.setState({ text: e.target.value });
     }
   }, {
     key: "render",
     value: function render() {
+      var _this4 = this;
+
       return _react2.default.createElement(
         "div",
         { className: "row" },
@@ -10571,13 +10582,20 @@ var TodontForm = function (_Component3) {
             _react2.default.createElement(
               "div",
               { className: "form-group" },
-              _react2.default.createElement("input", { type: "text", className: "form-control input-lg text-center", ref: "text",
-                autoFocus: true, placeholder: "I will not" })
+              _react2.default.createElement("input", {
+                type: "text",
+                className: "form-control input-lg text-center",
+                ref: "text",
+                autoFocus: true, placeholder: "I will not",
+                onChange: this.onChange.bind(this) })
             ),
             _react2.default.createElement(
               "button",
-              { type: "submit", className: "btn btn-primary btn-lg",
-                onClick: this.handleSubmit.bind(this) },
+              {
+                className: "btn btn-primary btn-lg",
+                onClick: function onClick(e) {
+                  return _this4.props.handleSubmit(e, _this4.state.text);
+                } },
               "Add"
             )
           )
@@ -10595,23 +10613,26 @@ var App = function (_Component4) {
   function App(props, context) {
     _classCallCheck(this, App);
 
-    var _this4 = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props, context));
+    var _this5 = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props, context));
 
-    _this4.state = { todontList: [{ text: "use shitty apis", gotTime: true }, { text: "Use apis that look promising but are actually shitty", gotTime: true }] };
-    return _this4;
+    _this5.state = { todontList: [{ text: 'Not database data', gotTime: true }] };
+    return _this5;
   }
 
   _createClass(App, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      // axios.get('/todonts')
-      //   .then(res => {
-      //     this.setState({
-      //       todontList: res.body
-      //     });
-      //     console.log(res.body)
-      //   })
-      //   .catch(err => console.log('could not receive todonts', err))
+      var _this6 = this;
+
+      var GET = _axios2.default.get('/todonts');
+      GET.then(function (res) {
+        _this6.setState({
+          todontList: res.data
+        });
+        console.log(res.data);
+      }).catch(function (err) {
+        return console.log('could not receive todonts', err);
+      });
     }
   }, {
     key: "updateTodontList",
@@ -10632,13 +10653,37 @@ var App = function (_Component4) {
   }, {
     key: "handleDelete",
     value: function handleDelete(index) {
+      var _this7 = this;
+
       var todontList = this.state.todontList;
       if (index < 0 || index > todontList.length) {
         console.error('index out of bounds');
       } else {
-        delete todontList[index];
-        this.setState({ todontList: todontList });
+
+        var DELETE = _axios2.default.delete("/delete", todontList[index]);
+
+        DELETE.then(function (res) {
+          console.log('successfully deleted from database');
+          _this7.setState({ res: res });
+        }).catch(function (err) {
+          return console.log('could not delete todont from the database');
+        });
       }
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e, text) {
+      e.preventDefault();
+      var todont = { text: text, gotTime: true };
+      this.state.todontList.push(todont);
+      this.setState({ todontList: this.state.todontList });
+      var POST = _axios2.default.post('/save', { text: text, gotTime: true });
+
+      POST.then(function (res) {
+        console.log('the response for axios post has been fired');
+      }).catch(function (err) {
+        console.log("could not submit todont to the database");
+      });
     }
   }, {
     key: "render",
@@ -10662,9 +10707,12 @@ var App = function (_Component4) {
             "Not not another cliche todo app"
           )
         ),
-        _react2.default.createElement(TodontList, _extends({}, this.state, { handleNoTime: this.handleNoTime.bind(this),
+        _react2.default.createElement(TodontList, _extends({}, this.state, {
+          handleNoTime: this.handleNoTime.bind(this),
           handleDelete: this.handleDelete.bind(this) })),
-        _react2.default.createElement(TodontForm, { updateTodontList: this.updateTodontList.bind(this) })
+        _react2.default.createElement(TodontForm, {
+          handleSubmit: this.handleSubmit.bind(this),
+          updateTodontList: this.updateTodontList.bind(this) })
       );
     }
   }]);
