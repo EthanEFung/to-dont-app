@@ -10,17 +10,19 @@ let db // mongo
 const url = require('./env/config');
 const PORT = 3000;
 
-app.use(express.static(path.join(__dirname, '../client/output/')));
-app.use(express.static(path.join(__dirname, '../client/static/')))
+app.use(express.static(path.join(__dirname, '../client/')));
 
 console.log(path.join(__dirname, '../client/output'))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
  
-app.get('/', (req, res) => {
-  res.status(200).send('Hello World');
-})
+// app.get('/', (req, res) => {
+//   res.status(200).send('Hello World');
+// })
+
+
+
 
 MongoClient.connect(url, (err, database) => {
   assert.equal(null, err);
