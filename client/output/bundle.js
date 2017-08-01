@@ -10653,21 +10653,26 @@ var App = function (_Component4) {
   }, {
     key: "handleDelete",
     value: function handleDelete(index) {
-      var _this7 = this;
-
       var todontList = this.state.todontList;
       if (index < 0 || index > todontList.length) {
         console.error('index out of bounds');
       } else {
+        delete todontList[index];
+        this.setState({ todontList: todontList });
 
-        var DELETE = _axios2.default.delete("/delete", todontList[index]);
+        // const PSUEDO_DELETE = axios.put('/todonts', { todontList });
 
-        DELETE.then(function (res) {
-          console.log('successfully deleted from database');
-          _this7.setState({ res: res });
-        }).catch(function (err) {
-          return console.log('could not delete todont from the database');
-        });
+        // PSUEDO_DELETE.then(res) => {
+        //   res.send('nice')
+        // }
+        // const DELETE = axios.delete(`/delete`,  todontList[index]);
+
+        // DELETE.then((res) => {
+        //   console.log('successfully deleted from database');
+        //   this.setState({res})
+        // })
+
+        // .catch(err => console.log('could not delete todont from the database'));
       }
     }
   }, {

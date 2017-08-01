@@ -125,21 +125,28 @@ class App extends Component {
     if (index < 0 || index > todontList.length) {
       console.error('index out of bounds');
     } else {
+      delete todontList[index];
+      this.setState({todontList})
 
-      const DELETE = axios.delete(`/delete`,  todontList[index]);
-      
-      DELETE.then((res) => {
-        console.log('successfully deleted from database');
-        this.setState({res})
-      })
-      
-      .catch(err => console.log('could not delete todont from the database'));
+      // const PSUEDO_DELETE = axios.put('/todonts', { todontList });
 
+      // PSUEDO_DELETE.then(res) => {
+      //   res.send('nice')
+      // }
+      // const DELETE = axios.delete(`/delete`,  todontList[index]);
+      
+      // DELETE.then((res) => {
+      //   console.log('successfully deleted from database');
+      //   this.setState({res})
+      // })
+      
+      // .catch(err => console.log('could not delete todont from the database'));
+ 
     }
   }
 
   handleSubmit(e, text) {
-    e.preventDefault();
+    e.preventDefault()
     const todont = { text: text, gotTime: true }
     this.state.todontList.push(todont);
     this.setState({ todontList: this.state.todontList })
