@@ -6,7 +6,7 @@ body {
 
 body .container {
   color: #444;
-  margin: 200px;
+  width: 60rem;
   border: 1px solid #333;
   border-radius: 10px;
   text-align: center;
