@@ -1,28 +1,26 @@
 @import url("https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope");
 body {
   font-family: "Annie Use Your Telescope";
-  background-color: #eee;
+  background-color: #fff3cc;
 }
 
 body .container {
+  color: #444;
+  margin: 200px;
   border: 1px solid #333;
+  border-radius: 10px;
   text-align: center;
 }
 
 body .container-header {
-  border: 1px solid #333;
   font-size: 40px;
 }
 
 body .container-description {
-  border: 1px solid #333;
+  font-size: 30px;
 }
 
 body .container .list {
-  border: 1px solid #f33;
-  font-size: 20px;
-}
-
-body .container .form {
-  border: 1px solid #f33;
+  text-decoration: underline;
+  font-size: 30px;
 }

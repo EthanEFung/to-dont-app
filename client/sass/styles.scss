@@ -2,25 +2,26 @@
 
 body {
   font-family: $telescope;
-  background-color: #eee;
+  background-color: $moleskin-white;
   .container {
+    color: #444;
+    margin: 200px;
     border: 1px solid #333;
+    border-radius: 10px;
     text-align: center;
     &-header {
-      border: 1px solid #333;
       font-size: 40px;
     }
     &-description {
-      border: 1px solid #333;
+      font-size: 30px;
     }
 
     .list {
-      border: 1px solid #f33;
-      font-size: 20px;
+      text-decoration: underline;
+      font-size: 30px;
     }
 
     .form {
-      border: 1px solid #f33;
     }
   }
 }
