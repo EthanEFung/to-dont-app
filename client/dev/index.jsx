@@ -169,15 +169,20 @@ class App extends Component {
         <h4 className="container-description">
           <i>Not not another cliche todo app</i>
         </h4>
-        <TodontList
-          {...this.state}
-          handleNoTime={this.handleNoTime.bind(this)}
-          handleDelete={this.handleDelete.bind(this)}
-        />
-        <TodontForm
-          handleSubmit={this.handleSubmit.bind(this)}
-          updateTodontList={this.updateTodontList.bind(this)}
-        />
+        <div className="list">
+          <TodontList
+            {...this.state}
+            handleNoTime={this.handleNoTime.bind(this)}
+            handleDelete={this.handleDelete.bind(this)}
+          />
+        </div>
+
+        <div className="form">
+          <TodontForm
+            handleSubmit={this.handleSubmit.bind(this)}
+            updateTodontList={this.updateTodontList.bind(this)}
+          />
+        </div>
       </div>
     );
   }

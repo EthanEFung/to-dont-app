@@ -10714,14 +10714,22 @@ var App = function (_Component4) {
             "Not not another cliche todo app"
           )
         ),
-        _react2.default.createElement(TodontList, _extends({}, this.state, {
-          handleNoTime: this.handleNoTime.bind(this),
-          handleDelete: this.handleDelete.bind(this)
-        })),
-        _react2.default.createElement(TodontForm, {
-          handleSubmit: this.handleSubmit.bind(this),
-          updateTodontList: this.updateTodontList.bind(this)
-        })
+        _react2.default.createElement(
+          "div",
+          { className: "list" },
+          _react2.default.createElement(TodontList, _extends({}, this.state, {
+            handleNoTime: this.handleNoTime.bind(this),
+            handleDelete: this.handleDelete.bind(this)
+          }))
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "form" },
+          _react2.default.createElement(TodontForm, {
+            handleSubmit: this.handleSubmit.bind(this),
+            updateTodontList: this.updateTodontList.bind(this)
+          })
+        )
       );
     }
   }]);

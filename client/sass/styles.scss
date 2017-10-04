@@ -1,0 +1,26 @@
+@import "_variables";
+
+body {
+  font-family: $telescope;
+  background-color: #eee;
+  .container {
+    border: 1px solid #333;
+    text-align: center;
+    &-header {
+      border: 1px solid #333;
+      font-size: 40px;
+    }
+    &-description {
+      border: 1px solid #333;
+    }
+
+    .list {
+      border: 1px solid #f33;
+      font-size: 20px;
+    }
+
+    .form {
+      border: 1px solid #f33;
+    }
+  }
+}
